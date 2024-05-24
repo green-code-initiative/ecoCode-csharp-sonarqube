@@ -61,9 +61,9 @@
     <sonar-packaging.version>1.23.0.740</sonar-packaging.version>
 
     <!-- EcoCode rules specifications from which rules would be used -->
-    <ecocode-rules-specifications.version>1.5.3</ecocode-rules-specifications.version>
+    <ecocode-rules-specifications.version>1.5.4</ecocode-rules-specifications.version>
     <!-- EcoCode nuget package version to use to build the plugin -->
-    <nuget.package.ecocode.version>1.0.8</nuget.package.ecocode.version>
+    <nuget.package.ecocode.version>1.1.0</nuget.package.ecocode.version>
   </properties>
 
   <dependencies>
