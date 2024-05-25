@@ -76,6 +76,8 @@ public class CSharpRulesDefinition implements RulesDefinition {
     }
   }
 
+  // SONAR : Disable rules S5042, considered as safe
+  @SuppressWarnings("java:S5042")
   private List<String> listJsonRules() throws IOException {
     List<String> jsonFiles = new ArrayList<>();
 
