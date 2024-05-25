@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.ecocode</groupId>
+  <artifactId>ecocode-csharp-plugin</artifactId>
+  <version>1.1.0-SNAPSHOT</version>
+
+  <packaging>sonar-plugin</packaging>
+
+  <name>ecoCode - C# language</name>
+  <description>Provides rules to reduce the environmental footprint of your C# programs</description>
+  <inceptionYear>2024</inceptionYear>
+
+  <url>https://github.com/green-code-initiative/ecoCode-csharp-sonarqube</url>
+  <organization>
+    <name>green-code-initiative</name>
+    <url>https://github.com/green-code-initiative</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>GPL v3</name>
+      <url>https://www.gnu.org/licenses/gpl-3.0.en.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:https://github.com/green-code-initiative/ecoCode-csharp-sonarqube</connection>
+    <developerConnection>scm:git:https://github.com/green-code-initiative/ecoCode-csharp-sonarqube</developerConnection>
+    <url>https://github.com/green-code-initiative/ecoCode-csharp-sonarqube</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/green-code-initiative/ecoCode-csharp-sonarqube/issues</url>
+  </issueManagement>
+
+  <properties>
+    <java.version>11</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <!-- to prevent message: system modules path not set in conjunction with -source 11 -->
+    <maven.compiler.release>${java.version}</maven.compiler.release>
+
+    <encoding>UTF-8</encoding>
+    <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+
+    <sonar.organization>green-code-initiative</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
+    <!-- SQ vs. API version table:
+    https://github.com/SonarSource/sonar-plugin-api?tab=readme-ov-file#sonarqube -->
+    <sonar.plugin.api.version>9.14.0.375</sonar.plugin.api.version>
+    <sonar-analyzer-commons.version>2.5.0.1358</sonar-analyzer-commons.version>
+    <sonar-packaging.version>1.23.0.740</sonar-packaging.version>
+
+    <!-- EcoCode rules specifications from which rules would be used -->
+    <ecocode-rules-specifications.version>1.5.4</ecocode-rules-specifications.version>
+    <!-- EcoCode nuget package version to use to build the plugin -->
+    <nuget.package.ecocode.version>1.1.0</nuget.package.ecocode.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>ecocode-rules-specifications</artifactId>
+      <version>${ecocode-rules-specifications.version}</version>
+      <classifier>csharp</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.sonarsource.api.plugin</groupId>
+      <artifactId>sonar-plugin-api</artifactId>
+      <version>${sonar.plugin.api.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.sonarsource.analyzer-commons</groupId>
+      <artifactId>sonar-analyzer-commons</artifactId>
+      <version>${sonar-analyzer-commons.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.staxmate</groupId>
+      <artifactId>staxmate</artifactId>
+      <version>2.4.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.16.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.13</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Testing dependencies -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.10.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.easytesting</groupId>
+      <artifactId>fest-assert</artifactId>
+      <version>1.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>5.12.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.sonarsource.sonarqube</groupId>
+      <artifactId>sonar-plugin-api-impl</artifactId>
+      <version>9.9.5.90363</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+      </plugin>
+      <plugin>
+        <!-- Download EcoCode nuget package and include it as part of generated plugin jar -->
+        <groupId>com.googlecode.maven-download-plugin</groupId>
+        <artifactId>download-maven-plugin</artifactId>
+        <version>1.3.0</version>
+        <executions>
+          <execution>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>wget</goal>
+            </goals>
+            <configuration>
+              <url>https://www.nuget.org/api/v2/package/EcoCode/${nuget.package.ecocode.version}</url>
+              <outputFileName>EcoCode.${nuget.package.ecocode.version}.zip</outputFileName>
+              <outputDirectory>${project.build.directory}/classes/static</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+        <artifactId>sonar-packaging-maven-plugin</artifactId>
+        <version>${sonar-packaging.version}</version>
+        <extensions>true</extensions>
+        <configuration>
+          <pluginKey>ecocodecsharp</pluginKey>
+          <pluginClass>io.ecocode.csharp.CSharpPlugin</pluginClass>
+          <sonarLintSupported>true</sonarLintSupported>
+          <pluginApiMinVersion>${sonar-plugin-api.version}</pluginApiMinVersion>
+          <skipDependenciesPackaging>true</skipDependenciesPackaging>
+          <jreMinVersion>${java.version}</jreMinVersion>
+          <requiredForLanguages>cs</requiredForLanguages>
+          <addMavenDescriptor>false</addMavenDescriptor>
+          <archive>
+            <manifestEntries>
+              <Implementation-Build>${buildNumber}</Implementation-Build>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <!-- plugin to generate a unique build number for sonar-packaging-maven-plugin : usage of
+        buildNumber variable -->
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>create</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+          <revisionOnScmFailure>0</revisionOnScmFailure>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <shadedArtifactAttached>false</shadedArtifactAttached>
+              <minimizeJar>true</minimizeJar>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+              <filters>
+                <filter>
+                  <artifact>io.ecocode:ecocode-rules-specifications:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/**</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>4.3</version>
+        <configuration>
+          <properties>
+            <owner>Green Code Initiative</owner>
+            <email>https://www.ecocode.io</email>
+          </properties>
+          <licenseSets>
+            <licenseSet>
+              <header>com/mycila/maven/plugin/license/templates/GPL-3.txt</header>
+              <includes>
+                <include>**/*.java</include>
+              </includes>
+            </licenseSet>
+          </licenseSets>
+        </configuration>
+        <executions>
+          <execution>
+            <id>validate</id>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <phase>validate</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>code-coverage</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.2.5</version>
+          </plugin>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.12</version>
+            <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>report</id>
+                <goals>
+                  <goal>report</goal>
+                </goals>
+                <configuration>
+                  <formats>
+                    <format>XML</format>
+                  </formats>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>code-analysis</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>3.11.0.3922</version>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+</project>

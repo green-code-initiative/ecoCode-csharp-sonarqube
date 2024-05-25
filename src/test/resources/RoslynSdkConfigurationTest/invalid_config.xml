@@ -1,0 +1,9 @@
+<RoslynSdkConfiguration>
+  <Foo>FooValue</Foo>
+  <Bar>BarValue</Bar>
+  <PluginProperties>
+    <PluginFoo>PluginFooValue</PluginFoo>
+    <PluginBar>PluginBarValue</PluginBar>
+  </PluginProperties>
+  <PluginProperties></PluginProperties>
+</RoslynSdkConfiguration>

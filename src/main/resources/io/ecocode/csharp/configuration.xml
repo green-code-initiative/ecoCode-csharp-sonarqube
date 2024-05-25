@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<RoslynSdkConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <PluginKeyDifferentiator>ecocodecsharp</PluginKeyDifferentiator>
+  <RepositoryKey>roslyn.ecocode-csharp.cs</RepositoryKey>
+  <RepositoryLanguage>cs</RepositoryLanguage>
+  <RepositoryName>ecoCode</RepositoryName>
+  <PluginProperties>
+    <ecocode-csharp.cs.nuget.packageId>EcoCode</ecocode-csharp.cs.nuget.packageId>
+    <ecocode-csharp.cs.nuget.packageVersion>${nuget.package.ecocode.version}</ecocode-csharp.cs.nuget.packageVersion>
+    <ecocode-csharp.cs.analyzerId>EcoCode</ecocode-csharp.cs.analyzerId>
+    <ecocode-csharp.cs.ruleNamespace>EcoCode</ecocode-csharp.cs.ruleNamespace>
+    <ecocode-csharp.cs.staticResourceName>EcoCode.${nuget.package.ecocode.version}.zip</ecocode-csharp.cs.staticResourceName>
+    <ecocode-csharp.cs.pluginKey>ecocodecsharp</ecocode-csharp.cs.pluginKey>
+    <ecocode-csharp.cs.pluginVersion>${nuget.package.ecocode.version}</ecocode-csharp.cs.pluginVersion>
+  </PluginProperties>
+</RoslynSdkConfiguration>
