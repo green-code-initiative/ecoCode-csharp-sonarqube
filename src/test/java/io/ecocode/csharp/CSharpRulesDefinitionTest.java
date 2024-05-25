@@ -34,6 +34,13 @@ import org.sonar.api.utils.Version;
 import org.sonar.api.utils.log.LogTesterJUnit5;
 import static org.fest.assertions.Assertions.assertThat;
 
+
+/*
+ * TODO DDC : correction of logger pb during test units ... cf 
+ * SLF4J(W): No SLF4J providers were found.
+ * SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+ * SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+ */
 class CSharpRulesDefinitionTest {
 
   @RegisterExtension
