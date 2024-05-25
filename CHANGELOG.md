@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- First release
+- First release 1.1.0 (to follow nuget package ecoCode)
 - Depend on ecocode-rules-specifications v1.5.4
 - Depend on nuget package EcoCode v1.1.0
 
