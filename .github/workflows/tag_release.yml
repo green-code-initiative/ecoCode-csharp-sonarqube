@@ -69,6 +69,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{needs.build.outputs.upload_url}}
-          asset_path: target/ecocode-csharp-plugin${{ github.ref_name }}.jar
+          asset_path: target/ecocode-csharp-plugin-${{ github.ref_name }}.jar
           asset_name: ecocode-csharp-plugin-${{ github.ref_name }}.jar
           asset_content_type: application/zip
