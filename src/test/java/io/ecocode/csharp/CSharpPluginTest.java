@@ -30,12 +30,6 @@ import org.sonar.api.utils.Version;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-// TODO DDC : correction WARNING dans console quand build =>
-/*
-[WARNING] .../ecoCode-csharp-sonarqube/src/test/java/io/ecocode/csharp/CSharpPluginTest.java:[52,52] non-varargs call of varargs method with inexact argument type for last parameter;
-  cast to java.lang.Object for a varargs call
-  cast to java.lang.Object[] for a non-varargs call and to suppress this warning
-*/
 class CSharpPluginTest {
 
   @Test
@@ -55,7 +49,7 @@ class CSharpPluginTest {
         CSharpRulesDefinition.class
     };
 
-    assertThat(nonProperties(extensions)).contains(expectedExtensions);
+    assertThat(nonProperties(extensions)).contains((Object[]) expectedExtensions);
     assertThat(extensions).hasSize(
         expectedExtensions.length
             + new CSharpPluginProperties(new CSharpConfiguration()).getProperties().size());
