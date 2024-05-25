@@ -4,7 +4,7 @@ name: sonarqube_ecocode_csharp
 services:
   sonar:
     build: .
-    container_name: sonar_ecocode
+    container_name: sonar_ecocode_csharp
     ports:
       - "9000:9000"
     networks:
@@ -29,7 +29,7 @@ services:
 
   db:
     image: postgres:12
-    container_name: postgresql_ecocode
+    container_name: postgresql_ecocode_csharp
     networks:
       - sonarnet
     volumes:

@@ -120,7 +120,7 @@
       <version>5.12.0</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
+    <dependency> <!-- TODO DDC : pourquoi cette dépendance + version figée par dans properties ? -->
       <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-plugin-api-impl</artifactId>
       <version>9.9.5.90363</version>
@@ -179,7 +179,7 @@
           <skipDependenciesPackaging>true</skipDependenciesPackaging>
           <jreMinVersion>${java.version}</jreMinVersion>
           <requiredForLanguages>cs</requiredForLanguages>
-          <addMavenDescriptor>false</addMavenDescriptor>
+          <addMavenDescriptor>false</addMavenDescriptor> <!-- TODO DDC : pourquoi cette option ? -->
           <archive>
             <manifestEntries>
               <Implementation-Build>${buildNumber}</Implementation-Build>
@@ -187,6 +187,7 @@
           </archive>
         </configuration>
       </plugin>
+      <!-- TODO DDC : sha1 à 0 dans les logs du sonarqube lancé : voir pourquoi (correctif déjà fait sur le même pb sur le plugins java mais sur du null et pas du 0 : peut-être normal pour la 1ère fois !) -->
       <plugin>
         <!-- plugin to generate a unique build number for sonar-packaging-maven-plugin : usage of
         buildNumber variable -->
@@ -223,6 +224,30 @@
               <filters>
                 <filter>
                   <artifact>io.ecocode:ecocode-rules-specifications:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/**</exclude>
+                  </excludes>
+                </filter>
+                <filter>
+                  <artifact>org.sonarsource.analyzer-commons:sonar-analyzer-commons:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/**</exclude>
+                  </excludes>
+                </filter>
+                <filter>
+                  <artifact>commons-io:commons-io:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/**</exclude>
+                  </excludes>
+                </filter>
+                <filter>
+                  <artifact>com.fasterxml.staxmate:staxmate:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/**</exclude>
+                  </excludes>
+                </filter>
+                <filter>
+                  <artifact>org.codehaus.woodstox:stax2-api:*</artifact>
                   <excludes>
                     <exclude>META-INF/**</exclude>
                   </excludes>
