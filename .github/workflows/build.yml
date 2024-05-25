@@ -38,7 +38,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Verify
-        run: mvn -e -B verify
+        run: mvn -e -B verify -Pcode-coverage
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
