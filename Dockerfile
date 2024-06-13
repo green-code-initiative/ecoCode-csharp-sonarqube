@@ -2,8 +2,8 @@
 
 ARG MAVEN_BUILDER=3-openjdk-17-slim
 
-# TODO DDC : voir pourquoi LTS et pas version explicitement la 9.5 car la LTS bouge et pas la version 9.5 compatible
-ARG SONARQUBE_VERSION=lts-community
+# Default Sonarqube version to 9.9 Community (Current LTS)
+ARG SONARQUBE_VERSION=9.9-community
 
 FROM maven:${MAVEN_BUILDER} AS builder
 
