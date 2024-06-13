@@ -56,6 +56,8 @@ To install other `ecocode` plugins, you can also :
 
 Then you can use C# test project repository to test the environment : see README.md of [C# test project](https://github.com/green-code-initiative/ecoCode-csharp-test-project)
 
+To analyze a .net codebase without having to install required components (i.e. .net SDK, JDK/JRE, etc.), you can use our [docker dotnetscan wrapper](./docker-dotnetscan/README.md).
+
 Finally, you can directly use a [all-in-one docker-compose](https://github.com/green-code-initiative/ecoCode-common/blob/main/doc/INSTALL.md#start-sonarqube-if-first-time)
 
 By default, `Dockerfile` use the official [Sonarqube LTS Community](https://hub.docker.com/_/sonarqube) image version.

@@ -47,6 +47,7 @@ services:
 
 networks:
   sonarnet:
+    name: sonarnet
     driver: bridge
 
 volumes:
