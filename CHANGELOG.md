@@ -13,11 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deleted
 
-## [1.5.1] - 2024-09-14
+## [1.5.1] - 2024-11-01
 
 ### Changed
 
-- Update ecocode-rules-specifications to 1.5.4
+- Update ecocode-rules-specifications to 1.6.5
 - Update nuget package EcoCode to 1.5.1
 
 ## [1.1.0] - 2024-05-26
