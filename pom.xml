@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.ecocode</groupId>
@@ -59,7 +61,7 @@
     <sonar-packaging.version>1.23.0.740</sonar-packaging.version>
 
     <!-- EcoCode rules specifications from which rules would be used -->
-    <ecocode-rules-specifications.version>1.6.3</ecocode-rules-specifications.version>
+    <ecocode-rules-specifications.version>1.6.5</ecocode-rules-specifications.version>
     <!-- EcoCode nuget package version to use to build the plugin -->
     <nuget.package.ecocode.version>1.5.1</nuget.package.ecocode.version>
   </properties>
@@ -191,7 +193,9 @@
           </archive>
         </configuration>
       </plugin>
-      <!-- TODO DDC : sha1 à 0 dans les logs du sonarqube lancé : voir pourquoi (correctif déjà fait sur le même pb sur le plugins java mais sur du null et pas du 0 : peut-être normal pour la 1ère fois !) -->
+      <!-- TODO DDC : sha1 à 0 dans les logs du sonarqube lancé : voir pourquoi (correctif déjà fait
+      sur le même pb sur le plugins java mais sur du null et pas du 0 : peut-être normal pour la
+      1ère fois !) -->
       <plugin>
         <!-- plugin to generate a unique build number for sonar-packaging-maven-plugin : usage of
         buildNumber variable -->
