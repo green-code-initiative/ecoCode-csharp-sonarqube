@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.ecocode</groupId>
   <artifactId>ecocode-csharp-plugin</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.5.1-SNAPSHOT</version>
 
   <packaging>sonar-plugin</packaging>
 
@@ -59,9 +61,9 @@
     <sonar-packaging.version>1.23.0.740</sonar-packaging.version>
 
     <!-- EcoCode rules specifications from which rules would be used -->
-    <ecocode-rules-specifications.version>1.5.4</ecocode-rules-specifications.version>
+    <ecocode-rules-specifications.version>1.6.5</ecocode-rules-specifications.version>
     <!-- EcoCode nuget package version to use to build the plugin -->
-    <nuget.package.ecocode.version>1.1.0</nuget.package.ecocode.version>
+    <nuget.package.ecocode.version>1.5.1</nuget.package.ecocode.version>
   </properties>
 
   <dependencies>
@@ -130,6 +132,12 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-nop</artifactId>
+      <version>2.0.13</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -185,7 +193,9 @@
           </archive>
         </configuration>
       </plugin>
-      <!-- TODO DDC : sha1 à 0 dans les logs du sonarqube lancé : voir pourquoi (correctif déjà fait sur le même pb sur le plugins java mais sur du null et pas du 0 : peut-être normal pour la 1ère fois !) -->
+      <!-- TODO DDC : sha1 à 0 dans les logs du sonarqube lancé : voir pourquoi (correctif déjà fait
+      sur le même pb sur le plugins java mais sur du null et pas du 0 : peut-être normal pour la
+      1ère fois !) -->
       <plugin>
         <!-- plugin to generate a unique build number for sonar-packaging-maven-plugin : usage of
         buildNumber variable -->
